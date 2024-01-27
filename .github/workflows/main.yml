@@ -1,0 +1,17 @@
+name: generate-latest-app
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version: '20.11'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build application
+        run: npm run build --if-present
+      - name: Run tests
+        run: npm run test
